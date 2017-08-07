@@ -1,0 +1,27 @@
+{
+  "demoMongo": {
+    "name": "demoMongo",
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "demo",
+    "connector": "mongodb"
+  },
+  "demoMySQL": {
+    "name": "demoMySQL",
+    "connector": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "database": "demo",
+    "username": "demo",
+    "password": "demo"
+  },
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "transient": {
+    "name": "transient",
+    "connector": "transient"
+  }
+}

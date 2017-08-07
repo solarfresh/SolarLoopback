@@ -1,0 +1,22 @@
+{
+  "apps" : [
+    {
+      "name"        : "api0",
+      "script"      : "server.js",
+      "log_date_format" : "YYYY-MM-DD HH:mm Z",
+      "args"        : "",
+      "watch"       : false,
+      "node_args"   : "",
+      "merge_logs"  : true,
+      "cwd"         : "./server",
+      "exec_mode"  : "cluster",
+      "max_memory_restart" :"640M",
+      "env": {
+        "NODE_ENV": ""
+      },
+      "env_production" : {
+         "NODE_ENV": ""
+      }
+    }
+  ]
+}
