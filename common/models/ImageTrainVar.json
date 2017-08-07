@@ -1,0 +1,51 @@
+{
+  "name": "ImageTrainVar",
+  "plural": "ImageTrainVar",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "strict": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mongodb": {
+    "collection": "ImageTrainVar"
+  },
+  "properties": {
+    "train_datetime": {
+      "type": "date",
+      "description": "time when generating weightings and bias"
+    },
+    "solver_method": {
+      "type": "string",
+      "description": "a method used to optimize"
+    },
+    "objective_function": {
+      "type": "string",
+      "description": "type of an objective function to be minimized"
+    },
+    "learning_rate": {
+      "type": "number",
+      "description": "the interval between steps of iteration"
+    },
+    "batch_size": {
+      "type": "number",
+      "description": "the size to estimate the next step"
+    },
+    "iter_max": {
+      "type": "number",
+      "description": "number of iteration steps"
+    },
+    "bias": {
+      "type": "array",
+      "description": "bias obtained after training data"
+    },
+    "weights": {
+      "type": "array",
+      "description": "a 2d array as weights obtained after training data"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

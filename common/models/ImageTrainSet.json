@@ -1,0 +1,27 @@
+{
+  "name": "ImageTrainSet",
+  "plural": "ImageTrainSet",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "strict": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mongodb": {
+    "collection": "ImageTrainSet"
+  },
+  "properties": {
+    "images": {
+      "type": "array",
+      "description": "images in gray scale"
+    },
+    "labels": {
+      "type": "array",
+      "description": "labels of images"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
