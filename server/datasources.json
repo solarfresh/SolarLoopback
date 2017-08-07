@@ -20,6 +20,12 @@
     "name": "db",
     "connector": "memory"
   },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./files"
+  },
   "transient": {
     "name": "transient",
     "connector": "transient"

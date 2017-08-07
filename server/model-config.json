@@ -13,6 +13,10 @@
       "./mixins"
     ]
   },
+  "ClassifiedImage": {
+    "dataSource": "storage",
+    "public": true
+  },
   "ImageTrainSet": {
     "dataSource": "demoMongo",
     "public": true
