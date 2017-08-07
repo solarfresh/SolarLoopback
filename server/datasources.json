@@ -1,7 +1,7 @@
 {
   "demoMongo": {
     "name": "demoMongo",
-    "host": "localhost",
+    "host": "10.0.2.15",
     "port": 27017,
     "url": "",
     "database": "demo",
@@ -10,7 +10,7 @@
   "demoMySQL": {
     "name": "demoMySQL",
     "connector": "mysql",
-    "host": "localhost",
+    "host": "10.0.2.15",
     "port": 3306,
     "database": "demo",
     "username": "demo",
