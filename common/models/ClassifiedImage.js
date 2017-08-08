@@ -1,5 +1,5 @@
 const co = require('co');
-const cv = require('opencv');
+const gm = require("gm");
 const moment = require('moment');
 
 module.exports = function(ClassifiedImage) {
@@ -12,14 +12,11 @@ module.exports = function(ClassifiedImage) {
         reject = cb;
       }
 
-      cv.readImage(filePath, function(err, im){
+      gm(filePath).color(function(err, value) {
         if (err) reject(err);
 
-        var imFeature = im.col().reduce((acc, cur, idx) => {
-          return acc.concat(im.row(idx));
-        }, [])
-
-        resolve(imFeature)
+console.log(value)
+        resolve(value)
       })
     })
   }
@@ -41,16 +38,17 @@ module.exports = function(ClassifiedImage) {
       });
       const label = trainedVal[0].bias.map((val, rowIdx) => {
         const mvInnerProduct = imFeature.reduce((acc, cur, colIdx) => {
-          return acc + trainedVal[0].weights[rowIdx][colIdx] * cur
+          return acc + trainedVal[0].weights[colIdx][rowIdx] * cur
         }, 0)
         return mvInnerProduct + val
       })
+console.log(label)
 
-      ImageEstimateVar.create({
-        estimate_datetime: moment(),
-        filePath: filePath,
-        labels: label
-      });
+      //ImageEstimateVar.create({
+      //  estimate_datetime: moment(),
+      //  filePath: filePath,
+      //  labels: label
+      //});
 
       next();
     })
