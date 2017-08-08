@@ -11,10 +11,12 @@ module.exports = function(ClassifiedImage) {
 
     cv.readImage(filePath, function(err, im){
       if (err) throw err;
-      console.log(im.width())
-      console.log(im.height())
-      console.log(im.row())
 
+      var imFeature = im.height().reduce((acc, cur, idx) => {
+        return acc.concat(im.row(idx));
+      }, [])
+
+      console.log(imFeature)
     })
 
     next();
