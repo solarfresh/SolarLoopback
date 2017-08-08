@@ -1,8 +1,9 @@
+const co = require('co');
 const cv = require('opencv');
 const moment = require('moment');
 
 module.exports = function(ClassifiedImage) {
-  var reshapeImage = function(filePath) {
+  var reshapeImage = function(filePath, cb) {
     return new Promise((resolve, reject) => {
       if (cb) {
         resolve = function(ret) {
@@ -20,7 +21,6 @@ module.exports = function(ClassifiedImage) {
 
         resolve(imFeature)
       })
-
     })
   }
 
@@ -29,8 +29,8 @@ module.exports = function(ClassifiedImage) {
           container = file.container,
           fileName = file.name;
     const filePath = "/home/api/files/" + container + "/" + fileName;
-    var ImageTrainVar = modelInstance.app.models.ImageTrainVar;
-    var ImageEstimateVar = modelInstance.app.models.ImageEstimateVar;
+    var ImageTrainVar = ClassifiedImage.app.models.ImageTrainVar;
+    var ImageEstimateVar = ClassifiedImage.app.models.ImageEstimateVar;
 
     co(function*() {
       const imFeature = yield reshapeImage(filePath);
@@ -55,7 +55,7 @@ module.exports = function(ClassifiedImage) {
       next();
     })
     .catch(function(err) {
-      reject(err);
+      next(err.stack);
     })
   });
 };
