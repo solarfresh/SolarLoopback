@@ -1,5 +1,5 @@
 const cv = require('opencv');
-const cv = require('moment');
+const moment = require('moment');
 
 module.exports = function(ClassifiedImage) {
   var reshapeImage = function(filePath) {
