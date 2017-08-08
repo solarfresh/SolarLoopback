@@ -7,12 +7,10 @@ module.exports = function(ClassifiedImage) {
           fileName = file.name;
     const filePath = "/home/api/files/" + container + "/" + fileName;
 
-    console.log(filePath)
-
     cv.readImage(filePath, function(err, im){
       if (err) throw err;
 
-      var imFeature = im.height().reduce((acc, cur, idx) => {
+      var imFeature = im.col().reduce((acc, cur, idx) => {
         return acc.concat(im.row(idx));
       }, [])
 
