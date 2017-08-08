@@ -17,6 +17,10 @@
     "dataSource": "storage",
     "public": true
   },
+  "ImageEstimateVar": {
+    "dataSource": "demoMongo",
+    "public": true
+  },
   "ImageTrainSet": {
     "dataSource": "demoMongo",
     "public": true
