@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "co": "^4.6.0",
     "compression": "^1.7.0",
     "loopback": "^3.9.0",
     "loopback-boot": "^2.26.0",
