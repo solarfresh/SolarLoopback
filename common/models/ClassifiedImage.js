@@ -1,5 +1,6 @@
 const co = require('co');
 const gm = require("gm");
+const jpeg = require("jpeg-js")
 const moment = require('moment');
 
 module.exports = function(ClassifiedImage) {
@@ -12,12 +13,32 @@ module.exports = function(ClassifiedImage) {
         reject = cb;
       }
 
-      gm(filePath).color(function(err, value) {
-        if (err) reject(err);
+      gm(filePath)
+        .channel("Red")
+	.toBuffer('jpg', (err, buffer) => {
+          if (err) reject(err);
 
-console.log(value)
-        resolve(value)
-      })
+          const image = jpeg.decode(buffer, true)
+          var grayScale = image.data.reduce((acc, cur, idx) => {
+            switch(idx % 4) {
+              case 0:
+                acc.push(cur);
+                break;
+              case 1:
+                acc[acc.length - 1] += cur;
+                break;
+              case 2:
+                acc[acc.length - 1] += cur;
+                break;
+              case 3:
+                acc[acc.length - 1] /= 255.0;
+                break;
+            }
+            return acc
+	  }, [])
+
+          resolve(grayScale)
+	})
     })
   }
 
@@ -42,13 +63,12 @@ console.log(value)
         }, 0)
         return mvInnerProduct + val
       })
-console.log(label)
 
-      //ImageEstimateVar.create({
-      //  estimate_datetime: moment(),
-      //  filePath: filePath,
-      //  labels: label
-      //});
+      ImageEstimateVar.create({
+        estimate_datetime: moment(),
+        filePath: filePath,
+        labels: label
+      });
 
       next();
     })
