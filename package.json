@@ -13,6 +13,8 @@
   "dependencies": {
     "co": "^4.6.0",
     "compression": "^1.7.0",
+    "gm": "^1.23.0",
+    "jpeg-js": "^0.3.3",
     "loopback": "^3.9.0",
     "loopback-boot": "^2.26.0",
     "loopback-component-explorer": "^4.2.0",
