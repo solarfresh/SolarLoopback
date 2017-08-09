@@ -1,8 +1,10 @@
-const cv = require('opencv');
+const co = require('co');
+const gm = require("gm");
+const jpeg = require("jpeg-js")
 const moment = require('moment');
 
 module.exports = function(ClassifiedImage) {
-  var reshapeImage = function(filePath) {
+  var reshapeImage = function(filePath, cb) {
     return new Promise((resolve, reject) => {
       if (cb) {
         resolve = function(ret) {
@@ -11,16 +13,32 @@ module.exports = function(ClassifiedImage) {
         reject = cb;
       }
 
-      cv.readImage(filePath, function(err, im){
-        if (err) reject(err);
+      gm(filePath)
+        .channel("Red")
+	.toBuffer('jpg', (err, buffer) => {
+          if (err) reject(err);
 
-        var imFeature = im.col().reduce((acc, cur, idx) => {
-          return acc.concat(im.row(idx));
-        }, [])
+          const image = jpeg.decode(buffer, true)
+          var grayScale = image.data.reduce((acc, cur, idx) => {
+            switch(idx % 4) {
+              case 0:
+                acc.push(cur);
+                break;
+              case 1:
+                acc[acc.length - 1] += cur;
+                break;
+              case 2:
+                acc[acc.length - 1] += cur;
+                break;
+              case 3:
+                acc[acc.length - 1] /= 255.0;
+                break;
+            }
+            return acc
+	  }, [])
 
-        resolve(imFeature)
-      })
-
+          resolve(grayScale)
+	})
     })
   }
 
@@ -29,8 +47,8 @@ module.exports = function(ClassifiedImage) {
           container = file.container,
           fileName = file.name;
     const filePath = "/home/api/files/" + container + "/" + fileName;
-    var ImageTrainVar = modelInstance.app.models.ImageTrainVar;
-    var ImageEstimateVar = modelInstance.app.models.ImageEstimateVar;
+    var ImageTrainVar = ClassifiedImage.app.models.ImageTrainVar;
+    var ImageEstimateVar = ClassifiedImage.app.models.ImageEstimateVar;
 
     co(function*() {
       const imFeature = yield reshapeImage(filePath);
@@ -41,7 +59,7 @@ module.exports = function(ClassifiedImage) {
       });
       const label = trainedVal[0].bias.map((val, rowIdx) => {
         const mvInnerProduct = imFeature.reduce((acc, cur, colIdx) => {
-          return acc + trainedVal[0].weights[rowIdx][colIdx] * cur
+          return acc + trainedVal[0].weights[colIdx][rowIdx] * cur
         }, 0)
         return mvInnerProduct + val
       })
@@ -52,10 +70,12 @@ module.exports = function(ClassifiedImage) {
         labels: label
       });
 
+      ctx.result["labels"] = label;
+
       next();
     })
     .catch(function(err) {
-      reject(err);
+      next(err.stack);
     })
   });
 };
