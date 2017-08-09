@@ -70,6 +70,8 @@ module.exports = function(ClassifiedImage) {
         labels: label
       });
 
+      ctx.result["labels"] = label;
+
       next();
     })
     .catch(function(err) {
