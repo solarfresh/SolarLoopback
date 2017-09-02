@@ -1,0 +1,31 @@
+{
+  "name": "ImageEstimateVar",
+  "plural": "ImageEstimateVar",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "strict": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mongodb": {
+    "collection": "ImageEstimateVar"
+  },
+  "properties": {
+    "estimate_datetime": {
+      "type": "date",
+      "description": "time when estimating labels"
+    },
+    "filePath": {
+      "type": "string",
+      "description": "path of file stored"
+    },
+    "labels": {
+      "type": "array",
+      "description": "labels estimated from trained weightings and bias"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
