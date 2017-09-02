@@ -20,6 +20,25 @@
     "name": "db",
     "connector": "memory"
   },
+  "email": {
+    "name": "email",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "username@gmail.com",
+          "pass": "password"
+        }
+      }
+    ]
+  },
   "storage": {
     "name": "storage",
     "connector": "loopback-component-storage",

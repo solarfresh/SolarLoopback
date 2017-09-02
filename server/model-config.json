@@ -17,6 +17,9 @@
     "dataSource": "storage",
     "public": true
   },
+  "Email": {
+    "dataSource": "email"
+  },
   "ImageEstimateVar": {
     "dataSource": "demoMongo",
     "public": true

@@ -1,5 +1,6 @@
 {
-  "name": "User",
+  "name": "user",
+  "base": "User",
   "properties": {
     "realm": {
       "type": "string"
