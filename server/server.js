@@ -2,17 +2,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var app = module.exports = loopback();
 
-app.use((req, res, next) => {
-  req.socket.on("error", (err) => { 
-    console.log("request socket: "+err.stack)
-  })
-
-  res.socket.on("error", (err) => { 
-    console.log("response socket: "+err.stack)
-  })
-
-  next()
-})
+app.use(loopback.token());
 
 app.start = function() {
   // start the web server

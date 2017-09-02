@@ -1,12 +1,12 @@
 {
   "_meta": {
     "sources": [
-      "loopback/common/models",
-      "loopback/server/models"
+      "../common/models",
+      "../server/models"
     ],
     "mixins": [
-      "loopback/common/mixins",
-      "loopback/server/mixins"
+      "../common/mixins",
+      "../server/mixins"
     ]
   },
   "ImageTrainSet": {
@@ -18,12 +18,12 @@
     "public": true
   },
   "User": {
-    "dataSource": "db",
-    "public": false
+    "dataSource": "demoMongo",
+    "public": true
   },
   "AccessToken": {
-    "dataSource": "db",
-    "public": false
+    "dataSource": "demoMongo",
+    "public": true
   },
   "ACL": {
     "dataSource": "db",
