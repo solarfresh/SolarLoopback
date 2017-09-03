@@ -29,26 +29,29 @@ module.exports = function(app) {
       password: req.body.password
     }, 'user', function(err, token) {
       if (err) {
-        if(err.details && err.code === 'LOGIN_FAILED_EMAIL_NOT_VERIFIED'){
-          res.render('reponseToTriggerEmail', {
-            title: 'Login failed',
-            content: err,
-            redirectToEmail: '/api/Users/'+ err.details.userId + '/verify',
-            redirectTo: '/',
-            redirectToLinkText: 'Click here',
-            userId: err.details.userId
-          });
-        } else {
-          res.render('response', {
-            title: 'Login failed. Wrong username or password',
-            content: err,
-            redirectTo: '/',
-            redirectToLinkText: 'Please login again',
-          });
-        }
+        // if(err.details && err.code === 'LOGIN_FAILED_EMAIL_NOT_VERIFIED'){
+        //   res.render('reponseToTriggerEmail', {
+        //     title: 'Login failed',
+        //     content: err,
+        //     redirectToEmail: '/api/Users/'+ err.details.userId + '/verify',
+        //     redirectTo: '/',
+        //     redirectToLinkText: 'Click here',
+        //     userId: err.details.userId
+        //   });
+        // } else {
+        //   res.render('response', {
+        //     title: 'Login failed. Wrong username or password',
+        //     content: err,
+        //     redirectTo: '/',
+        //     redirectToLinkText: 'Please login again',
+        //   });
+        // }
+        res.status(500).send({
+          msg: "login failed."
+        });
         return;
       }
-      res.render('home', {
+      res.status(200).send({
         email: req.body.email,
         accessToken: token.id,
         redirectUrl: '/api/users/change-password?access_token=' + token.id
