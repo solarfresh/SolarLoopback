@@ -6,7 +6,7 @@
 var path = require('path');
 
 module.exports = function(app) {
-  var User = app.models.user;
+  var User = app.models.User;
 
   //login page
   app.get('/', function(req, res) {
